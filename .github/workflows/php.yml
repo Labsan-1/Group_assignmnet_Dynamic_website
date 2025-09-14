@@ -1,0 +1,33 @@
+name: PHP CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0' # Replace with the PHP version you are using
+        extensions: mbstring, intl
+
+    - name: Run PHP Syntax Check
+      run: php -l index.php # Replace `index.php` with your main PHP file or adjust to check all files
+
+    # Optional: Add PHP tests if applicable
+    # - name: Run Tests
+    #   run: phpunit tests # Adjust the path if you have a testing framework
+
